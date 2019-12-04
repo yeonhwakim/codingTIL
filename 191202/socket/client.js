@@ -7,6 +7,6 @@ console.log('socket connect');
 
 socket.on('connect', () => {
   socket.emit('test', 'karen');
-  print('socket connected');
+  console.log('socket connected');
   socket.emit('test');
 });
