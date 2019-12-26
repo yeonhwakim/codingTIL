@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body{display: flex;}
+      div{width:50%;}
+      /* body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; } */
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1 id="h1">Room1</h1>
+      <form id="joinForm">
+        <input id="name" type="text" placeholder="user">
+        <button>join</button>
+      </form>
+      <form id="chatForm">
+        <input id="chat" type="text" placeholder="chat">
+        <button>chat</button>
+      </form>
+      <ul id="message"></ul>
+    </div>
+    <div>
+  
+    <div>
+      <h1 id="h2">Room2</h1>
+      <form id="joinForm2">
+        <input id="name2" type="text" placeholder="user">
+        <button>join</button>
+      </form>
+      <form id="chatForm2">
+        <input id="chat2" type="text" placeholder="chat">
+        <button>chat</button>
+      </form>
+      <ul id="message2"></ul>
+    </div>
+    <!-- <form id="room2Form">
+      <input id="room2Name" type="text" placeholder="user">
+      <input id="room2Chat" type="text" placeholder="chat">
+      <button>room2</button>
+    </form>
+    <ul id="room2Message"></ul> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      $(function () {
+        var socket = io('/room');
+
+        $('#joinForm').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('join', {room: $('#h1').text(), user:$('#name').val()});
+          return false;
+        });
+        $('#joinForm2').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('join', {room: $('#h2').text(), user:$('#name2').val()});
+          return false;
+        });
+        $('#chatForm').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat', {room: $('#h1').text(), user:$('#name').val(), chat:$('#chat').val()});
+          $('#chat').val('');
+          return false;
+        });
+        $('#chatForm2').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat', {room: $('#h2').text(), user:$('#name2').val(), chat:$('#chat2').val()});
+          $('#chat2').val('');
+          return false;
+        });
+        socket.on('conn', function(msg){
+          console.log(msg);
+        });
+        socket.on('joined', function(msg){
+          $(msg.room === 'Room1' ? '#message' : '#message2').append($('<li>').text(`${msg.user}이 입장하셨습니다.`));
+        });
+        socket.on('chatted', function(msg){
+          $(msg.room === 'Room1' ? '#message' : '#message2').append($('<li>').text(`${msg.user}: ${msg.chat}`));
+        });
+      });
+    </script>
+  </body>
+</html>

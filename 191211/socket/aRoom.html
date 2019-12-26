@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>list</title>
+</head>
+<body>
+  <form id="submit">
+    <input id="room" type="text" value="a">
+    <button id="button" type="submit">getList</button>
+  </form>
+  <ul id="list"></ul>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:3000/list',{
+      transports: ['websocket'],
+    });
+    document.getElementById('submit').onsubmit = (e) => {
+      e.preventDefault()
+      socket.emit('getList', {user: Math.floor(Math.random()*10), room: document.getElementById('room').value});
+    }
+    socket.on('connected', (data) => {
+      console.log(data);
+    })
+    socket.on('setList', (data) => {
+      $('#list').empty();
+      data.map(d => $('#list').append(`<li>${d.restaurant} <button id="${d.id}" onClick="count(this)">${d.counter}</button></li>`))
+    })
+    socket.on('updateList', (data) => {
+      console.log($('#list'))
+      console.log($('#list').find(`#${data.id}`))
+      console.log($('#list').find(`#${data.id}`).text)
+      $('#list').find(`#${data.id}`).text(data.count)
+    })
+    const count = (node) => {
+      socket.emit('updataList', {count: parseInt(node.textContent) + 1, id: node.id, room: document.getElementById('room').value});
+    }
+  </script>
+</body>
+</html>

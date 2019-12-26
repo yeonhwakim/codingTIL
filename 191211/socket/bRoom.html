@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>list</title>
+</head>
+<body>
+  <button id="aRoom" class="room">a</button>
+  <button id="bRoom" class="room">b</button>
+  <ul id="list"></ul>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('/list');
+    socket.emit('join', {type: 'b', member: Math.floor(Math.random()*10)});  
+    document.getElementsByClassName('room').onclick = (e) => {
+      const random = Math.floor(Math.random() * 10)
+      socket.emit('getList', {type: e.target.textContent})
+    }
+    socket.on('setList', (data) => {
+      data.map(d => $('#list').append($('<li>').text(d)))
+    })
+  </script>
+</body>
+</html>
