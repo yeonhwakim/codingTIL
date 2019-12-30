@@ -46,12 +46,7 @@ export default () => {
       dispatch(updateItem(data.currId, data.prevId))
     })
     socket.on('updatePrevId', (data) => {
-      console.log('asdasdasd',data)
       dispatch(updatePrevId(data))
-    })
-    socket.on('duplicate', (data) => {
-      console.log('duplicate')
-      return
     })
   }, []);
 

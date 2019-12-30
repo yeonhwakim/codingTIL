@@ -27,7 +27,7 @@ export const reducer = (prevState = initialState, action) => produce(prevState, 
 
     case UPDATE_PREVID: {
       draft.prevId = action.currId
-      console.log(draft.prevId)
+      console.log('prevId', draft.prevId)
       return draft
     }
 

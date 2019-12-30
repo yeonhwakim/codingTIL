@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 
 import {
@@ -69,3 +69,10 @@ export const reqVoteItem = (id, prevId) => ({
   emit: 'reqVoteItem',
   data: {  room: 'a', id, counter: window.user, prevId },
 })
+
+
+export const test = (id, prevId) => { 
+  return (dispatch, getState) => {
+    dispatch(updatePrevId(id))
+    dispatch(reqVoteItem(id, prevId))
+}}
