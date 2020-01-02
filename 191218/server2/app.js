@@ -33,8 +33,7 @@ voteRoom.on('connection', (socket) => {
   })
 
   socket.on('reqVoteItem', (data) => {
-    console.log(data)
-    // voteRoom.emit('updatePrevId', data.id);
+    voteRoom.to(data.room).emit('updatePrevId', data);
     vote(data)
   })    
 });

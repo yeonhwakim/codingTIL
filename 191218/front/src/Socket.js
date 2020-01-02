@@ -46,7 +46,10 @@ export default () => {
       dispatch(updateItem(data.currId, data.prevId))
     })
     socket.on('updatePrevId', (data) => {
-      dispatch(updatePrevId(data))
+      if(window.user === data.counter){
+        dispatch(updatePrevId(data.id))
+      }
+      return
     })
   }, []);
 

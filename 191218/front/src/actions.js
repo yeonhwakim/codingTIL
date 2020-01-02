@@ -1,13 +1,6 @@
-// import axios from 'axios';
-
-
 import {
   SET_ITEM, ADD_ITEM, VOTE_ITEM, GET_ITEMS, UPDATE_ITEM, UPDATE_PREVID
 } from './actionTypes';
-
-// import { initialState } from './reducers';
-// import shortId from 'shortid';
-
 
 export const setItem = (value) => ({
   type: SET_ITEM,
@@ -19,11 +12,6 @@ export const addItem = (name, key) => ({
   name,
   key,
 });
-
-// export const voteItem = (id) => ({
-//   type: VOTE_ITEM,
-//   id,
-// });
 
 export const voteItem = (items) => ({
   type: VOTE_ITEM,
@@ -46,12 +34,6 @@ export const updatePrevId = (currId) => ({
   currId,
 });
 
-// export const reqGetItems = (room) => (dispatch) => {
-//   axios.get('/reqGetItems', (data) => {
-//     dispatch(getItems(data))
-//   })
-// };
-
 export const joinRoom = (room) => ({
   type: 'socket',
   emit: 'join',
@@ -70,9 +52,3 @@ export const reqVoteItem = (id, prevId) => ({
   data: {  room: 'a', id, counter: window.user, prevId },
 })
 
-
-export const test = (id, prevId) => { 
-  return (dispatch, getState) => {
-    dispatch(updatePrevId(id))
-    dispatch(reqVoteItem(id, prevId))
-}}
