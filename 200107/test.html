@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+  <title>Document</title>
+</head>
+<body>
+  <div>test</div>
+  <script src="./socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:9000/test',{
+      transports: ['websocket'],
+    });
+    socket.on('connected', () => {
+      console.log('connect')
+    })
+    socket.on('send', (data) => {
+      console.log(data);
+    })
+  </script>
+</body>
+</html>
