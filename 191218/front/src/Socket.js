@@ -36,9 +36,6 @@ export default () => {
     socket.on('addItem', (data) => {
       dispatch(addItem(data.name, data.key))
     })
-    // socket.on('voteItem', (data) => {
-    //   dispatch(voteItem(data.id))
-    // })
     socket.on('voteItem', (data) => {
       dispatch(voteItem(data))
     })
