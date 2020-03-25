@@ -1,5 +1,5 @@
 {
-  "name": "200324",
+  "name": "200325.v2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "google-spreadsheet": "^2.0.9"
+    "google-spreadsheet": "^3.0.10"
   }
 }
